@@ -11,6 +11,10 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 class addUserInfo(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(addUserInfo, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
     class Meta:
         model = UserProfile
         exclude = ('user',)
@@ -20,6 +24,11 @@ class addUserInfo(forms.ModelForm):
 
 
 class UploadDocumentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(UploadDocumentForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+            
     class Meta:
         model = UploadDocument
         exclude = ('user',)

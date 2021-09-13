@@ -5,6 +5,7 @@ from .models import UserProfile,UploadDocument
 import qrcode
 import qrcode.image.svg
 from io import BytesIO
+from django.contrib import messages
 # Create your views here.
 from datetime import date
 
@@ -97,6 +98,9 @@ def landing(request):
 
     return render(request,"landing.html",{'num':info})
 
+def faqPage(request):
+    return render(request,"basic_qr/faq.html")
+
 def profile(request,pk):
     info = UserProfile.objects.get(id=pk)
     num = ""
@@ -132,6 +136,7 @@ def loginPage(request):
                 return redirect("basic_qr:profile",profile.id)
 
             else:
+                messages.info(request,"Incorrect username or password")
                 return redirect("basic_qr:medform")
         else:
             #messages.info(request,"Incorrect username or password")

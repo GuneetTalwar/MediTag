@@ -23,6 +23,7 @@ class UserProfile(models.Model):
     weight_kgs =models.FloatField(null=True,blank=True)
     allergies = models.TextField(null=True,blank=True)
     disabilities = models.TextField(null=True,blank=True)
+    emergencies = models.TextField(null=True,blank=True)
     undergoing_treatments = models.TextField(null=True,blank=True)
     spl_med_conditions = models.TextField(null=True,blank=True)
     ongoing_meds = models.TextField(null=True,blank=True)
