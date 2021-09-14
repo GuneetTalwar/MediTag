@@ -118,8 +118,10 @@ def profile(request,pk):
     'num':num,
     'allow':allow,
     'path':"http://127.0.0.1:8000/" + str(request.path) ,
-    'age':calculate_age(info.dob)
+    'age': "pending"
     }
+    if(info.dob):
+        context['age'] = calculate_age(info.dob)
     return render(request,"basic_qr/profile.html",context)
 
 def loginPage(request):
@@ -136,11 +138,10 @@ def loginPage(request):
                 return redirect("basic_qr:profile",profile.id)
 
             else:
-                messages.info(request,"Incorrect username or password")
                 return redirect("basic_qr:medform")
         else:
-            #messages.info(request,"Incorrect username or password")
-            return redirect("basic_qr:login")
+            messages.error(request,"Incorrect username or password",extra_tags="danger")
+
 
 
     return render(request,"basic_qr/login.html")
@@ -157,7 +158,7 @@ def registerPage(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             user = form.save()
-
+            messages.success(request,"Registration Successful",extra_tags="success")
             return redirect('basic_qr:login')
 
     context = {'form':form}
